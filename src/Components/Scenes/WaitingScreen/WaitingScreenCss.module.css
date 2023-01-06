@@ -1,0 +1,39 @@
+.homeWrapper {
+  height: 530px;
+  width: 320px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+  background: linear-gradient(
+    180deg,
+    #627a96 0%,
+    #83b5c5 19.47%,
+    #8dc7d4 39.07%,
+    #93d2dc 82.24%,
+    #95d6df 100%
+  );
+}
+
+
+.opponent {
+  text-align: center;
+font-family: 'Helvetica Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 20px;
+line-height: 24px;
+text-transform: uppercase;
+}
+
+.xo {
+    font-size: 48px;
+    font-weight: 400;
+    cursor: pointer;
+    outline: none;
+    font-weight: 400;
+    font-family: 'Baskervville', serif;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 80px;
+}

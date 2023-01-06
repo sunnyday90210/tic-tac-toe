@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
+import styles from "./BoardCss.module.css";
 
 import Squares from "@/Components/Scenes/Squares/Squares";
 import { calculateWinner } from "@/Components/Helpers/helpers";
+import { Link } from "react-router-dom";
 
 interface Score {
   xScore: number;
@@ -14,7 +16,7 @@ const Board = () => {
   );
   const [xIsNext, setXIsNext] = useState<boolean>(true);
   const [scores, setScores] = useState<Score>({ xScore: 0, oScore: 0 });
-
+  const { xScore, oScore } = scores;
   const handleClick = (index: number) => {
     const boardCopy = [...boardSquares];
     if (boardCopy[index] || calculateWinner(boardSquares)) return;
@@ -32,9 +34,11 @@ const Board = () => {
     );
   };
 
-  let status;
+  let player;
+  let winnerText;
   const winner = calculateWinner(boardSquares);
-  status = winner ? `${winner} WINS!` : xIsNext ? `X'S Turn` : `O'S Turn`;
+  player = xIsNext ? `X'S Turn` : `O'S Turn`;
+  winnerText = winner === "tie" ? `It's a Tie!` : `${winner} WINS!`;
 
   useEffect(() => {
     if (winner === "X") {
@@ -44,35 +48,57 @@ const Board = () => {
     }
   }, [winner]);
 
-  const { xScore, oScore } = scores;
-
   const restartGame = () => {
     setboardSquares(Array(9).fill(null));
     setXIsNext(true);
   };
 
   return (
-    <div className="h-[530px] w-[320px] bg-gradient-blueish">
-      <div>{status}</div>
-      <button onClick={restartGame}>Play Again</button>
-      <div>
-        Scores: {xScore} and {oScore}
+    <div
+      className="h-[530px] w-[320px] bg-gradient-blueish"
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "column",
+      }}
+    >
+      <div
+        style={{
+          fontFamily: "Helvetica Neue",
+          fontStyle: "normal",
+          fontWeight: 300,
+          fontSize: 20,
+          textTransform: "uppercase",
+          marginBottom: 49,
+        }}
+      >
+        {winner ? winnerText : player}
       </div>
-      <div>
+      <div className="board">
         {renderSquare(0)}
         {renderSquare(1)}
         {renderSquare(2)}
-      </div>
-      <div>
         {renderSquare(3)}
         {renderSquare(4)}
         {renderSquare(5)}
-      </div>
-      <div>
         {renderSquare(6)}
         {renderSquare(7)}
         {renderSquare(8)}
       </div>
+      {winner && (
+        <button className={styles.gameBtn} onClick={restartGame}>
+          Play Again
+        </button>
+      )}
+      {(winner && oScore > 1) ||
+        (winner && xScore > 1 && (
+          <button className={(styles.gameBtn, styles.seeRecordBtn)}>
+            <Link to="/record" state={{ winner, xScore, oScore }}>
+              See Record
+            </Link>
+          </button>
+        ))}
     </div>
   );
 };

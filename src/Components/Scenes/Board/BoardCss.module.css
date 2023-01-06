@@ -1,0 +1,20 @@
+.gameBtn, .seeRecordBtn {
+  height: 40px;
+  width: 300px;
+  color: white;
+  background-color: #201238;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  text-transform: uppercase;
+  font-family: 'Raleway', sans-serif;
+  margin-top: 50px;
+}
+
+.gameBtn:hover {
+  background-color:  rgba(40, 45, 79, 0.66);
+}
+
+.seeRecordBtn {
+  margin-top: 25px;
+}
