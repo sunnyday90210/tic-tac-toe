@@ -1,8 +1,9 @@
-.boardWrapper {
+.recordsWrapper {
   height: 530px;
   width: 320px;
+  text-align: center;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   flex-direction: column;
   background: linear-gradient(
@@ -15,25 +16,17 @@
   );
 }
 
-.board {
-  width: 250px;
-  height: 250px;
-  margin: 0 auto;
-  display: grid;
-  grid-template: repeat(3, 1fr) / repeat(3, 1fr);
-}
-
 .winnerText {
   font-family: "Helvetica Neue";
   font-style: normal;
-  font-weight: 300px;
+  font-weight: 300;
   font-size: 20px;
   text-transform: uppercase;
   margin-bottom: 49px;
+  width: 250px;
 }
 
-.gameBtn,
-.seeRecordBtn {
+.recordBtn {
   height: 40px;
   width: 300px;
   color: white;
@@ -46,10 +39,6 @@
   margin-top: 50px;
 }
 
-.gameBtn:hover {
+.recordBtn:hover {
   background-color: rgba(40, 45, 79, 0.66);
-}
-
-.seeRecordBtn {
-  margin-top: 25px;
 }

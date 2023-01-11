@@ -1,6 +1,8 @@
+import styles from "./SquaresCss.module.css";
+
 const Squares = ({ handleClick, value }: SquaresProps) => {
   return (
-    <button className="btn-style" onClick={handleClick}>
+    <button className={styles.square} onClick={handleClick}>
       {value}
     </button>
   );
