@@ -4,8 +4,7 @@ import { useNavigate } from "react-router";
 
 const HomeScreen = () => {
   const navigate = useNavigate();
-  const [isXGreen, setIsXGreen] = useState<boolean>(false);
-  const [isOGreen, setIsOGreen] = useState<boolean>(false);
+  const [selected, setSelected] = useState<"O" | "X" | "none">("none");
   return (
     <div className={styles.homeWrapper}>
       <h1 className={styles.welcome}>Welcome</h1>
@@ -13,32 +12,38 @@ const HomeScreen = () => {
       <div className={styles.xo}>
         <div
           onClick={() => {
-            setIsXGreen(!isXGreen);
-            setIsOGreen(false);
+            if (selected !== "X") {
+              setSelected("X");
+            } else {
+              setSelected("none");
+            }
           }}
-          style={
-            isXGreen
-              ? { borderBottom: "5px solid #5CB85C" }
-              : { borderBottom: "5px solid #D8D8D8" }
-          }
+          style={{
+            borderBottomColor: selected === "X" ? "#5CB85C" : "#D8D8D8",
+          }}
         >
           X
         </div>
         <div
           onClick={() => {
-            setIsOGreen(!isOGreen);
-            setIsXGreen(false);
+            if (selected !== "O") {
+              setSelected("O");
+            } else {
+              setSelected("none");
+            }
           }}
-          style={
-            isOGreen
-              ? { borderBottom: "5px solid #5CB85C" }
-              : { borderBottom: "5px solid #D8D8D8" }
-          }
+          style={{
+            borderBottomColor: selected === "O" ? "#5CB85C" : "#D8D8D8",
+          }}
         >
           O
         </div>
       </div>
-      <button className={styles.homeBtn} onClick={() => navigate("/waiting")}>
+      <button
+        disabled={selected === "none"}
+        className={styles.homeBtn}
+        onClick={() => navigate("/waiting")}
+      >
         Match me with My Opponent
       </button>
     </div>

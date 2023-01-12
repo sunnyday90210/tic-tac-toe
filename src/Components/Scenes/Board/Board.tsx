@@ -10,13 +10,14 @@ interface Score {
   oScore: number;
 }
 
+const BoardArray = Array(9).fill(null);
+
 const Board = () => {
-  const [boardSquares, setboardSquares] = useState<string[]>(
-    Array(9).fill(null)
-  );
+  const [boardSquares, setboardSquares] = useState<string[]>(BoardArray);
   const [xIsNext, setXIsNext] = useState<boolean>(true);
   const [scores, setScores] = useState<Score>({ xScore: 0, oScore: 0 });
   const { xScore, oScore } = scores;
+
   const handleClick = (index: number) => {
     const boardCopy = [...boardSquares];
     if (boardCopy[index] || calculateWinner(boardSquares)) return;
@@ -25,18 +26,11 @@ const Board = () => {
     setXIsNext(!xIsNext);
   };
 
-  const renderSquare = (index: number) => {
-    return (
-      <Squares
-        value={boardSquares[index]}
-        handleClick={() => handleClick(index)}
-      />
-    );
-  };
-
   let player;
   let winnerText;
-  const winner = calculateWinner(boardSquares);
+  const winner = calculateWinner(boardSquares)?.winningPlayer;
+  const winningSquars = calculateWinner(boardSquares)?.winningSquares;
+
   player = xIsNext ? `X'S Turn` : `O'S Turn`;
   winnerText = winner === "tie" ? `It's a Tie!` : `${winner} WINS!`;
 
@@ -54,51 +48,33 @@ const Board = () => {
   };
 
   return (
-    <div
-      className="h-[530px] w-[320px] bg-gradient-blueish"
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
-      }}
-    >
-      <div
-        style={{
-          fontFamily: "Helvetica Neue",
-          fontStyle: "normal",
-          fontWeight: 300,
-          fontSize: 20,
-          textTransform: "uppercase",
-          marginBottom: 49,
-        }}
-      >
-        {winner ? winnerText : player}
-      </div>
-      <div className="board">
-        {renderSquare(0)}
-        {renderSquare(1)}
-        {renderSquare(2)}
-        {renderSquare(3)}
-        {renderSquare(4)}
-        {renderSquare(5)}
-        {renderSquare(6)}
-        {renderSquare(7)}
-        {renderSquare(8)}
+    <div className={styles.boardWrapper}>
+      <div className={styles.winnerText}>{winner ? winnerText : player}</div>
+      <div className={styles.board}>
+        {BoardArray.map((_square, index) => {
+          return (
+            <Squares
+              index={index}
+              winningSquars={winningSquars}
+              key={index}
+              value={boardSquares[index]}
+              handleClick={() => handleClick(index)}
+            />
+          );
+        })}
       </div>
       {winner && (
         <button className={styles.gameBtn} onClick={restartGame}>
           Play Again
         </button>
       )}
-      {(winner && oScore > 1) ||
-        (winner && xScore > 1 && (
-          <button className={(styles.gameBtn, styles.seeRecordBtn)}>
-            <Link to="/record" state={{ winner, xScore, oScore }}>
-              See Record
-            </Link>
-          </button>
-        ))}
+      {((winner && oScore > 1) || (winner && xScore > 1)) && (
+        <button className={(styles.gameBtn, styles.seeRecordBtn)}>
+          <Link to="/record" state={{ winner, xScore, oScore }}>
+            See Record
+          </Link>
+        </button>
+      )}
     </div>
   );
 };

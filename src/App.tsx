@@ -3,7 +3,7 @@ import { BrowserRouter } from "react-router-dom";
 
 function App() {
   return (
-    <div className="mt-10 flex justify-center">
+    <div className="appWrapper">
       <BrowserRouter>
         <PageWrapper />
       </BrowserRouter>

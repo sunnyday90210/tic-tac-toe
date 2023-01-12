@@ -63,6 +63,6 @@ text-transform: uppercase;
 
 .xo div {
     width: 60px;
-    border-bottom: 5px solid #D8D8D8;
+    border-bottom: 5px solid;
     text-align: center;
 }

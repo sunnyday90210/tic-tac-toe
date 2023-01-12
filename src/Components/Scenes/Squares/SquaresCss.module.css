@@ -1,0 +1,29 @@
+.square {
+    border: 3px solid #7E7E7E;
+    font-size: 48px;
+    font-weight: 800;
+    cursor: pointer;
+    outline: none;
+    font-weight: 400;
+    font-family: 'Baskervville', serif;
+  }
+
+.square:first-child,
+.square:nth-child(2),
+.square:nth-child(3) {
+  border-top: none;
+}
+
+.square:nth-child(3n + 1) {
+  border-left: none;
+}
+
+.square:nth-child(3n + 3) {
+  border-right: none;
+}
+
+.square:last-child,
+.square:nth-child(8),
+.square:nth-child(7) {
+  border-bottom: none;
+}
