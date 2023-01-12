@@ -28,7 +28,8 @@ const Board = () => {
 
   let player;
   let winnerText;
-  const winner = calculateWinner(boardSquares);
+  const winner = calculateWinner(boardSquares)?.winningPlayer;
+  const winningSquars = calculateWinner(boardSquares)?.winningSquares;
 
   player = xIsNext ? `X'S Turn` : `O'S Turn`;
   winnerText = winner === "tie" ? `It's a Tie!` : `${winner} WINS!`;
@@ -53,6 +54,8 @@ const Board = () => {
         {BoardArray.map((_square, index) => {
           return (
             <Squares
+              index={index}
+              winningSquars={winningSquars}
               key={index}
               value={boardSquares[index]}
               handleClick={() => handleClick(index)}
